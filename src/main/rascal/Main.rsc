@@ -1,8 +1,15 @@
 module Main
 
 import IO;
+import Verilang::AST;
+import Verilang::Load;
 
-int main(int testArgument=0) {
-    println("argument: <testArgument>");
-    return testArgument;
+Program demoProgram() {
+    str sample = "defmodule Demo using Base defspace Naturals end end";
+    return loadProgram(sample);
+}
+
+int main(list[str] _args=[]) {
+    println(demoProgram());
+    return 0;
 }
