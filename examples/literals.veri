@@ -1,0 +1,5 @@
+defmodule Numeric
+  defspace Real end
+
+  defexpression (1 < 2 and 3.5 >= 1.0) end
+end

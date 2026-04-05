@@ -1,21 +1,20 @@
-
+# Verilang en Rascal
 
 ## Estructura
 
 - `src/main/rascal/Verilang/Syntax.rsc`: gramática concreta
-- `src/main/rascal/Verilang/Parse.rsc`: función de parseo
-- `src/main/rascal/Verilang/Load.rsc`: punto de entrada para cargar programas
-- `examples/set-normalized.veri`: ejemplo completo que parsea con la gramática actual
-- `examples/set.veri`: versión cercana al ejemplo original, todavía ambigua
+- `src/main/rascal/Verilang/Parse.rsc`: parser de `Program`
+- `src/main/rascal/Verilang/AST.rsc`: sintaxis abstracta
+- `src/main/rascal/Verilang/Load.rsc`: carga a parse tree y a AST
+- `src/main/rascal/Verilang/Pretty.rsc`: impresión legible del AST
+- `src/main/rascal/Verilang/Run.rsc`: pipeline desde archivo y verificación de round-trip
+- `src/main/rascal/Verilang/Highlight.rsc`: generación de HTML con highlighting
+- `src/main/rascal/ExampleSet.rsc`: ejemplo principal del AST
+- `src/main/rascal/CompileVerilang.rsc`: entrypoint para correr el pipeline
+- `src/main/rascal/VerifyVerilang.rsc`: smoke test sobre varios programas
+- `src/main/rascal/HighlightVerilang.rsc`: genera un HTML resaltado para un `.veri`
 
-## Qué funciona
-
-La implementación actual ya hace dos cosas:
-
-- parsea programas Verilang a `Tree` con `loadParseTree(...)`
-- convierte ese parse tree a AST con `loadProgram(...)`
-
-La gramática actual cubre:
+## Qué cubre la implementación
 
 - módulos `defmodule`
 - imports `using`
@@ -25,55 +24,105 @@ La gramática actual cubre:
 - reglas `defrule`
 - expresiones cuantificadas `forall` y `exists`
 - operadores lógicos e infijos como `and`, `or`, `in`, `isIn`, `≡`
-- bloques de atributos como `[associative id:0]`
+- atributos sueltos y bloques como `[associative id:0]`
 
-## Cómo probarlo
-
-### Opción 1: desde la terminal con el runtime de Rascal
+## Compilación
 
 Desde la raíz del proyecto:
 
 ```bash
-java -cp ~/.vscode/extensions/usethesource.rascalmpl-0.13.3/assets/jars/rascal.jar:~/.vscode/extensions/usethesource.rascalmpl-0.13.3/assets/jars/rascal-lsp.jar org.rascalmpl.shell.RascalShell ExampleSetNormalized
+mvn org.rascalmpl:rascal-maven-plugin:0.8.2:compile
 ```
 
-Si todo está bien, el comando imprime el AST de `examples/set-normalized.veri`.
+Ese comando valida que los módulos Rascal compilen.
 
-### Opción 2: desde el REPL de Rascal
+## Pruebas recomendadas
 
-En la terminal Rascal de VS Code:
+### 1. Ver el AST del ejemplo principal
+
+```bash
+java -cp ~/.vscode/extensions/usethesource.rascalmpl-0.13.3/assets/jars/rascal.jar:~/.vscode/extensions/usethesource.rascalmpl-0.13.3/assets/jars/rascal-lsp.jar org.rascalmpl.shell.RascalShell ExampleSet
+```
+
+Salida esperada:
+
+- un valor `program(...)`
+- dentro del módulo deben aparecer `importDecl`, `spaceDecl`, `operatorDecl`, `varDecl`, `ruleDecl` y `expressionDeclNoAttrs`
+
+### 2. Probar el pipeline desde archivo
+
+```bash
+java -cp ~/.vscode/extensions/usethesource.rascalmpl-0.13.3/assets/jars/rascal.jar:~/.vscode/extensions/usethesource.rascalmpl-0.13.3/assets/jars/rascal-lsp.jar org.rascalmpl.shell.RascalShell CompileVerilang examples/set.veri
+```
+
+Salida esperada:
+
+- `Input: |project://proyecto2/examples/set.veri|`
+- `Round-trip: ok`
+- el programa Verilang reconstruido en consola
+
+Esto demuestra:
+
+- lectura desde archivo `.veri`
+- parseo
+- reconstrucción del programa con `unparse`
+- reparse y comparación de AST para validar round-trip
+
+### 3. Verificar varios programas válidos
+
+```bash
+java -cp ~/.vscode/extensions/usethesource.rascalmpl-0.13.3/assets/jars/rascal.jar:~/.vscode/extensions/usethesource.rascalmpl-0.13.3/assets/jars/rascal-lsp.jar org.rascalmpl.shell.RascalShell VerifyVerilang
+```
+
+Salida esperada:
+
+- `examples/set.veri: ok`
+- `examples/set-normalized.veri: ok`
+- `examples/exists.veri: ok`
+- `examples/literals.veri: ok`
+
+### 4. Generar una versión HTML con highlighting
+
+```bash
+java -cp ~/.vscode/extensions/usethesource.rascalmpl-0.13.3/assets/jars/rascal.jar:~/.vscode/extensions/usethesource.rascalmpl-0.13.3/assets/jars/rascal-lsp.jar org.rascalmpl.shell.RascalShell HighlightVerilang examples/set.veri target/verilang-highlight.html
+```
+
+Salida esperada:
+
+- `Highlight HTML: |project://proyecto2/target/verilang-highlight.html|`
+
+Luego se puede abrir el archivo:
+
+- `target/verilang-highlight.html`
+
+Ahí se ve el código con palabras reservadas resaltadas en HTML.
+
+## Ejemplos incluidos
+
+- `examples/set.veri`: ejemplo principal
+- `examples/set-normalized.veri`: variante con bloque de atributos
+- `examples/exists.veri`: cubre `exists`
+- `examples/literals.veri`: cubre literales numéricos y operadores relacionales
+
+## Uso desde el REPL
+
+AST legible:
 
 ```rascal
-import ExampleSetNormalized;
+import ExampleSet;
 demoSet();
 ```
 
-Eso devuelve un string limpio con la sintaxis abstracta, sin `src=` ni `comments=()`.
-
-Si quieres el AST crudo:
+AST crudo:
 
 ```rascal
-import ExampleSetNormalized;
+import ExampleSet;
 demoSetAst();
 ```
 
-También puedes probar el loader directamente:
+Loader directo:
 
 ```rascal
 import Verilang::Load;
 loadProgram("defmodule Demo using Base defspace Naturals end end");
 ```
-
-Si quieres ver el parse tree concreto en vez del AST:
-
-```rascal
-import Verilang::Load;
-loadParseTree("defmodule Demo using Base defspace Naturals end end");
-```
-
-## Ejemplo recomendado para evaluar
-
-Usa este archivo:
-
-- `examples/set-normalized.veri`
-

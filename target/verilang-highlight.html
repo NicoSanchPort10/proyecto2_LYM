@@ -1,0 +1,21 @@
+<pre class="verilang"><code><span class="Keyword">defmodule</span> Set
+  <span class="Keyword">using</span> List
+
+  <span class="Keyword">defspace</span> Set &lt; SuperSet <span class="Keyword">end</span>
+
+  <span class="Keyword">defoperator</span> union: Set -&gt; Set -&gt; Set associative <span class="Keyword">end</span>
+  <span class="Keyword">defoperator</span> isIn: Element -&gt; Set -&gt; Bool <span class="Keyword">end</span>
+  <span class="Keyword">defoperator</span> implication: Bool -&gt; Bool -&gt; Bool <span class="Keyword">end</span>
+  <span class="Keyword">defoperator</span> negation: Bool -&gt; Bool <span class="Keyword">end</span>
+
+  <span class="Keyword">defvar</span> p:Bool, q:Bool <span class="Keyword">end</span>
+  <span class="Keyword">defrule</span> (implication p q) -&gt; (disjunction (negation p) q) <span class="Keyword">end</span>
+
+  <span class="Keyword">defexpression</span> (<span class="Keyword">forall</span> x <span class="Keyword">in</span> Element .
+    (<span class="Keyword">forall</span> S <span class="Keyword">in</span> Set .
+      (<span class="Keyword">forall</span> U <span class="Keyword">in</span> Set .
+        x <span class="Keyword">isIn</span> (union S U) ≡ (x <span class="Keyword">isIn</span> S <span class="Keyword">or</span> x <span class="Keyword">in</span> U)
+      )
+    )
+  ) <span class="Keyword">end</span>
+<span class="Keyword">end</span></code></pre>

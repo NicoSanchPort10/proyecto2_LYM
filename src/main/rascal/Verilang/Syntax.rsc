@@ -25,7 +25,7 @@ start syntax Program
   ;
 
 syntax Module
-  = moduleDecl: "defmodule" Identifier name Declaration+ body "end"
+  = moduleDecl: "defmodule" Identifier name Declaration* body "end"
   ;
 
 syntax Declaration

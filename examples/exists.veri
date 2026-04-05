@@ -1,0 +1,11 @@
+defmodule Quantifiers
+  using Logic
+
+  defspace Nat end
+
+  defoperator succ: Nat -> Nat end
+  defoperator plus: Nat -> Nat -> Nat associative end
+
+  defvar x:Nat end
+  defexpression (exists y in Nat . (y = (succ x))) end
+end
