@@ -12,6 +12,7 @@ data Declaration
   = importDecl(str importedName)
   | spaceDecl(str spaceName, SpaceParent parentSpec)
   | spaceDeclNoParent(str spaceName)
+  | operatorDeclBlock(str operatorName, Type signature, AttributeBlock attributeBlock)
   | operatorDecl(str operatorName, Type signature, list[Attribute] attributes)
   | operatorDeclNoAttrs(str operatorName, Type signature)
   | varDecl(list[VarItem] variables)
@@ -83,11 +84,19 @@ data RuleTerm
 
 data Attribute
   = plainAttribute(str name)
-  | valuedAttribute(str name, str value)
+  | valuedAttribute(str name, AttributeValue attrValue)
+  ;
+
+data AttributeBlock
+  = block(list[Attribute] attributes)
+  ;
+
+data AttributeValue
+  = idValue(str text)
+  | intValue(int number)
   ;
 
 data Literal
   = floatLiteral(real floatNumber)
   | intLiteral(int intNumber)
-  | charLiteral(str charText)
   ;

@@ -16,7 +16,6 @@ keyword Reserved
   | "forall"
   | "exists"
   | "in"
-  | "isIn"
   | "and"
   | "or"
   ;
@@ -33,6 +32,7 @@ syntax Declaration
   = importDecl: "using" Identifier name
   | spaceDecl: "defspace" Identifier name SpaceParent parent "end"
   | spaceDeclNoParent: "defspace" Identifier name "end"
+  | operatorDeclBlock: "defoperator" Identifier name ":" Type sig AttributeBlock attributeBlock "end"
   | operatorDecl: "defoperator" Identifier name ":" Type sig Attribute+ attributes "end"
   | operatorDeclNoAttrs: "defoperator" Identifier name ":" Type sig "end"
   | varDecl: "defvar" {VarItem ","}+ vars "end"
@@ -104,13 +104,21 @@ syntax RuleTerm
 
 syntax Attribute
   = plainAttribute: Identifier name
-  | valuedAttribute: Identifier name ":" Identifier value
+  | valuedAttribute: Identifier name ":" AttributeValue attrValue
+  ;
+
+syntax AttributeBlock
+  = block: "[" Attribute+ attrs "]"
+  ;
+
+syntax AttributeValue
+  = idValue: Identifier text
+  | intValue: IntLiteral number
   ;
 
 syntax Literal
   = floatLiteral: FloatLiteral floatText
   | intLiteral: IntLiteral intText
-  | charLiteral: CharLiteral charText
   ;
 
 lexical Identifier
@@ -123,9 +131,4 @@ lexical IntLiteral
 
 lexical FloatLiteral
   = [0-9]+ "." [0-9]+ !>> [0-9]
-  ;
-
-lexical CharLiteral
-  = "\'" ![\'\\] "\'"
-  | "\'" "\\" . "\'"
   ;

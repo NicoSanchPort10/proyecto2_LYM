@@ -3,11 +3,14 @@ module ExampleSetNormalized
 import IO;
 import Verilang::AST;
 import Verilang::Load;
+import Verilang::Pretty;
 
-Program demoSet() {
+Program demoSetAst() {
     loc example = |project://proyecto2/examples/set-normalized.veri|;
     return loadProgram(example);
 }
+
+str demoSet() = prettyProgram(demoSetAst());
 
 int main(list[str] _args=[]) {
     println(demoSet());

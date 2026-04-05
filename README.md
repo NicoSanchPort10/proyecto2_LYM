@@ -48,7 +48,14 @@ import ExampleSetNormalized;
 demoSet();
 ```
 
-Eso devuelve un valor `program(...)` con la sintaxis abstracta.
+Eso devuelve un string limpio con la sintaxis abstracta, sin `src=` ni `comments=()`.
+
+Si quieres el AST crudo:
+
+```rascal
+import ExampleSetNormalized;
+demoSetAst();
+```
 
 También puedes probar el loader directamente:
 
@@ -69,5 +76,4 @@ loadParseTree("defmodule Demo using Base defspace Naturals end end");
 Usa este archivo:
 
 - `examples/set-normalized.veri`
-
 
