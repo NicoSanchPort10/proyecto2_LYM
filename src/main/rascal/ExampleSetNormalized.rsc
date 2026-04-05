@@ -5,7 +5,7 @@ import Verilang::AST;
 import Verilang::Load;
 
 Program demoSet() {
-    loc example = |file:///Users/nicosanchport/Documents/RascalProjects/proyecto2/examples/set-normalized.veri|;
+    loc example = |project://proyecto2/examples/set-normalized.veri|;
     return loadProgram(example);
 }
 

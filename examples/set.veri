@@ -3,7 +3,7 @@ defmodule Set
 
   defspace Set < SuperSet end
 
-  defoperator union: Set -> Set -> Set [associative id:0] end
+  defoperator union: Set -> Set -> Set associative end
   defoperator isIn: Element -> Set -> Bool end
   defoperator implication: Bool -> Bool -> Bool end
   defoperator negation: Bool -> Bool end
@@ -14,7 +14,7 @@ defmodule Set
   defexpression (forall x in Element .
     (forall S in Set .
       (forall U in Set .
-        x isIn (S union U) ≡ (x isIn S or x in U)
+        x isIn (union S U) ≡ (x isIn S or x in U)
       )
     )
   ) end

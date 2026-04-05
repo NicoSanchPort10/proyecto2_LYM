@@ -16,6 +16,7 @@ keyword Reserved
   | "forall"
   | "exists"
   | "in"
+  | "isIn"
   | "and"
   | "or"
   ;
@@ -32,7 +33,6 @@ syntax Declaration
   = importDecl: "using" Identifier name
   | spaceDecl: "defspace" Identifier name SpaceParent parent "end"
   | spaceDeclNoParent: "defspace" Identifier name "end"
-  | operatorDeclBlock: "defoperator" Identifier name ":" Type sig AttributeBlock attributeBlock "end"
   | operatorDecl: "defoperator" Identifier name ":" Type sig Attribute+ attributes "end"
   | operatorDeclNoAttrs: "defoperator" Identifier name ":" Type sig "end"
   | varDecl: "defvar" {VarItem ","}+ vars "end"
@@ -57,10 +57,6 @@ syntax Type
 syntax Expr
   = quantifiedExpr: "(" Quantifier quantifier Identifier var "in" Identifier domain "." Expr body ")"
   | logicExpr: LogicExpr logic
-  ;
-
-syntax GroupedLogicExpr
-  = groupedLogic: SimpleExpr first GroupedLogicStep+ rest
   ;
 
 syntax Quantifier
@@ -88,61 +84,33 @@ syntax LogicOp
   | leOp: "\<="
   | geOp: "\>="
   | inOp: "in"
-  | namedOp: Identifier op
-  ;
-
-syntax BuiltinLogicOp
-  = builtinAndOp: "and"
-  | builtinOrOp: "or"
-  | builtinImpliesOp: "=\>"
-  | builtinEquivOp: "≡"
-  | builtinEqOp: "="
-  | builtinNeqOp: "\<\>"
-  | builtinLtOp: "\<"
-  | builtinGtOp: "\>"
-  | builtinLeOp: "\<="
-  | builtinGeOp: "\>="
-  | builtinInOp: "in"
-  | builtinIsInOp: "isIn"
-  ;
-
-syntax GroupedLogicStep
-  = groupedLogicStep: BuiltinLogicOp op SimpleExpr rhs
+  | isInOp: "isIn"
   ;
 
 syntax SimpleExpr
   = applicationExpr: Application app
   | identifierExpr: Identifier name
   | literalExpr: Literal lit
-  | groupedExpr: "(" GroupedLogicExpr expr ")"
+  | groupedExpr: "(" Expr expr ")"
   ;
 
 syntax Application
-  = application: "(" Identifier name SimpleExpr+ params ")"
+  = application: "(" Identifier name SimpleExpr* params ")"
   ;
 
 syntax RuleTerm
   = ruleApplication: Application app
-  | ruleIdentifier: Identifier name
   ;
 
 syntax Attribute
   = plainAttribute: Identifier name
-  | valuedAttribute: Identifier name ":" AttributeValue value
-  ;
-
-syntax AttributeBlock
-  = block: "[" Attribute+ attrs "]"
-  ;
-
-syntax AttributeValue
-  = idValue: Identifier text
-  | intValue: IntLiteral number
+  | valuedAttribute: Identifier name ":" Identifier value
   ;
 
 syntax Literal
   = floatLiteral: FloatLiteral floatText
   | intLiteral: IntLiteral intText
+  | charLiteral: CharLiteral charText
   ;
 
 lexical Identifier
@@ -155,4 +123,9 @@ lexical IntLiteral
 
 lexical FloatLiteral
   = [0-9]+ "." [0-9]+ !>> [0-9]
+  ;
+
+lexical CharLiteral
+  = "\'" ![\'\\] "\'"
+  | "\'" "\\" . "\'"
   ;

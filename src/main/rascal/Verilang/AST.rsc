@@ -12,7 +12,6 @@ data Declaration
   = importDecl(str importedName)
   | spaceDecl(str spaceName, SpaceParent parentSpec)
   | spaceDeclNoParent(str spaceName)
-  | operatorDeclBlock(str operatorName, Type signature, AttributeBlock attributeBlock)
   | operatorDecl(str operatorName, Type signature, list[Attribute] attributes)
   | operatorDeclNoAttrs(str operatorName, Type signature)
   | varDecl(list[VarItem] variables)
@@ -37,10 +36,6 @@ data Type
 data Expr
   = quantifiedExpr(Quantifier quantifier, str variable, str domain, Expr body)
   | logicExpr(LogicExpr logic)
-  ;
-
-data GroupedLogicExpr
-  = groupedLogic(SimpleExpr first, list[GroupedLogicStep] rest)
   ;
 
 data Quantifier
@@ -68,33 +63,14 @@ data LogicOp
   | leOp()
   | geOp()
   | inOp()
-  | namedOp(str name)
-  ;
-
-data BuiltinLogicOp
-  = builtinAndOp()
-  | builtinOrOp()
-  | builtinImpliesOp()
-  | builtinEquivOp()
-  | builtinEqOp()
-  | builtinNeqOp()
-  | builtinLtOp()
-  | builtinGtOp()
-  | builtinLeOp()
-  | builtinGeOp()
-  | builtinInOp()
-  | builtinIsInOp()
-  ;
-
-data GroupedLogicStep
-  = groupedLogicStep(BuiltinLogicOp op, SimpleExpr rhs)
+  | isInOp()
   ;
 
 data SimpleExpr
   = applicationExpr(Application application)
   | identifierExpr(str name)
   | literalExpr(Literal literal)
-  | groupedExpr(GroupedLogicExpr grouped)
+  | groupedExpr(Expr inner)
   ;
 
 data Application
@@ -103,24 +79,15 @@ data Application
 
 data RuleTerm
   = ruleApplication(Application application)
-  | ruleIdentifier(str name)
   ;
 
 data Attribute
   = plainAttribute(str name)
-  | valuedAttribute(str name, AttributeValue attrValue)
-  ;
-
-data AttributeBlock
-  = block(list[Attribute] attributes)
-  ;
-
-data AttributeValue
-  = idValue(str text)
-  | intValue(int number)
+  | valuedAttribute(str name, str value)
   ;
 
 data Literal
   = floatLiteral(real floatNumber)
   | intLiteral(int intNumber)
+  | charLiteral(str charText)
   ;
