@@ -1,0 +1,21 @@
+defmodule Numbers
+  using Logic
+
+  defspace Nat end
+  defspace Real end
+  defspace Bool end
+
+  defoperator succ: Nat -> Nat end
+  defoperator plus: Nat -> Nat -> Nat associative end
+  defoperator not: Bool -> Bool end
+  defoperator conj: Bool -> Bool -> Bool associative end
+
+  defvar x:Nat, y:Nat end
+  defvar flag:Bool end
+
+  defrule (plus x (succ y)) -> (succ (plus x y)) end
+
+  defexpression (exists z in Nat . (z = (succ x))) end
+  defexpression (1 < 2 and true) end
+  defexpression ("hello" = "hello") end
+end

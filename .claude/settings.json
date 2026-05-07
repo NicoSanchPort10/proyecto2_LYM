@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(jar xf *)",
+      "Bash(jar tf *)",
+      "Read(//Users/nicosanchport/.m2/repository/org/rascalmpl/**)",
+      "Bash(xargs -I{} bash -c 'jar tf {} 2>/dev/null | grep -l \"LanguageServer\" && echo {}')",
+      "Bash(find ~/.vscode/extensions -name \"LanguageServer.rsc\" 2>/dev/null | head -5)",
+      "Read(//Users/nicosanchport/.vscode/extensions/**)",
+      "Bash(find ~/.vscode -name \"*.rsc\" 2>/dev/null | xargs grep -l \"LanguageServer\\\\|registerLanguage\" 2>/dev/null | head -5)",
+      "Read(//Users/nicosanchport/.vscode/**)",
+      "Read(//Users/nicosanchport/**)",
+      "Bash(xargs -I{} sh -c 'jar tf \"$1\" 2>/dev/null | grep LanguageServer | sed \"s|^|$1:|\"' _ {})",
+      "Bash(xargs -I{} sh -c 'jar tf \"$1\" 2>/dev/null | grep -q \"LanguageServer\" && echo \"$1\"' _ {})",
+      "Bash(xargs -I{} sh -c 'jar tf \"$1\" 2>/dev/null | grep -q \"LanguageServer.rsc\" && echo \"$1\"' _ {})",
+      "Bash(xargs -I{} sh -c 'jar tf \"$1\" 2>/dev/null | grep -q \"LanguageServer\" && echo \"$1\": && jar tf \"$1\" 2>/dev/null | grep \"LanguageServer\"' _ {})",
+      "Bash(unzip -p ~/.m2/repository/org/rascalmpl/typepal/0.8.6/typepal-0.8.6.jar META-INF/RASCAL.MF)",
+      "Bash(unzip -p ~/.m2/repository/org/rascalmpl/typepal/0.7.6/typepal-0.7.6.jar META-INF/RASCAL.MF)",
+      "Bash(unzip -p ~/.m2/repository/org/rascalmpl/typepal/0.8.6/typepal-0.8.6.jar META-INF/maven/org.rascalmpl/typepal/pom.xml)",
+      "Bash(unzip -l ~/.m2/repository/org/rascalmpl/typepal/0.8.6/typepal-0.8.6.jar)",
+      "Bash(unzip -p ~/.m2/repository/org/rascalmpl/typepal/0.8.6/typepal-0.8.6.jar src/analysis/typepal/TypePal.rsc)",
+      "Bash(unzip -p ~/.m2/repository/org/rascalmpl/typepal/0.8.6/typepal-0.8.6.jar src/analysis/typepal/Collector.rsc)",
+      "Bash(grep -v \"/$\")",
+      "Bash(unzip -l ~/.m2/repository/org/rascalmpl/rascal/0.42.1/rascal-0.42.1.jar)",
+      "Bash(unzip -p /Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal-lsp.jar rascal/util/LanguageServer.tpl)",
+      "Bash(unzip -l /Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal-lsp.jar)",
+      "Bash(unzip -p /Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal-lsp.jar library/util/LanguageServer.rsc)",
+      "Bash(unzip -p /Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal-lsp.jar library/demo/lang/pico/LanguageServer.rsc)",
+      "Bash(mvn help:describe -Dplugin=org.rascalmpl:rascal-maven-plugin:0.8.2 -Ddetail)",
+      "Bash(unzip -p /Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal-lsp.jar META-INF/MANIFEST.MF)",
+      "Bash(unzip -p /Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal-lsp.jar META-INF/maven/org.rascalmpl/rascal-lsp/pom.properties)",
+      "Bash(mvn dependency:get -Dartifact=org.rascalmpl:rascal-lsp:2.22.5 -Dpackaging=jar -DremoteRepositories=https://releases.usethesource.io/maven/)",
+      "Bash(mvn install:install-file -Dfile=/Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal-lsp.jar -DgroupId=org.rascalmpl -DartifactId=rascal-lsp -Dversion=2.22.5 -Dpackaging=jar)"
+    ]
+  }
+}

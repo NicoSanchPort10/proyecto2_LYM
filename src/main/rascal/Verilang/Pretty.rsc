@@ -200,6 +200,12 @@ str prettyLiteral(Literal lit) {
       return "floatLiteral(<floatNumber>)";
     case intLiteral(intNumber):
       return "intLiteral(<intNumber>)";
+    case boolLiteral(boolText):
+      return "boolLiteral(\"<boolText>\")";
+    case charLiteral(charText):
+      return "charLiteral(\"<charText>\")";
+    case stringLiteral(strText):
+      return "stringLiteral(\"<strText>\")";
   }
 
   return "invalid Literal";

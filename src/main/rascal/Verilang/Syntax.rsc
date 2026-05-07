@@ -18,6 +18,8 @@ keyword Reserved
   | "in"
   | "and"
   | "or"
+  | "true"
+  | "false"
   ;
 
 start syntax Program
@@ -95,7 +97,7 @@ syntax SimpleExpr
   ;
 
 syntax Application
-  = application: "(" Identifier name SimpleExpr* params ")"
+  = application: "(" Identifier name SimpleExpr+ params ")"
   ;
 
 syntax RuleTerm
@@ -119,6 +121,9 @@ syntax AttributeValue
 syntax Literal
   = floatLiteral: FloatLiteral floatText
   | intLiteral: IntLiteral intText
+  | boolLiteral: BoolLiteral boolText
+  | charLiteral: CharLiteral charText
+  | stringLiteral: StringLiteral strText
   ;
 
 lexical Identifier
@@ -131,4 +136,16 @@ lexical IntLiteral
 
 lexical FloatLiteral
   = [0-9]+ "." [0-9]+ !>> [0-9]
+  ;
+
+lexical BoolLiteral
+  = "true" | "false"
+  ;
+
+lexical CharLiteral
+  = "\'" ![\'\n] "\'"
+  ;
+
+lexical StringLiteral
+  = "\"" ![\"\n]* "\""
   ;

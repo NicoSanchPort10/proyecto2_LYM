@@ -5,13 +5,13 @@ import Verilang::AST;
 import Verilang::Parse;
 
 Tree loadParseTree(str src)
-  = parseProgram(src);
+  = parseProgram(src).top;
 
 Tree loadParseTree(loc src)
-  = parseProgram(src);
+  = parseProgram(src).top;
 
 Program loadProgram(str src)
-  = implode(#Program, parseProgram(src));
+  = implode(#Program, parseProgram(src).top);
 
 Program loadProgram(loc src)
-  = implode(#Program, parseProgram(src));
+  = implode(#Program, parseProgram(src).top);

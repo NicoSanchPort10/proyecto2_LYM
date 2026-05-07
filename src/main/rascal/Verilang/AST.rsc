@@ -99,4 +99,7 @@ data AttributeValue
 data Literal
   = floatLiteral(real floatNumber)
   | intLiteral(int intNumber)
+  | boolLiteral(str boolText)
+  | charLiteral(str charText)
+  | stringLiteral(str strText)
   ;

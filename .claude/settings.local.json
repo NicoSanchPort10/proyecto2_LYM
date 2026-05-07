@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree -L 3 /Users/nicosanchport/Documents/RascalProjects/proyecto2 --ignore \".git\" --ignore \"target\")",
+      "Bash(mvn compile *)",
+      "Bash(mvn org.rascalmpl:rascal-maven-plugin:0.8.2:compile)",
+      "Bash(mvn clean *)"
+    ]
+  }
+}
