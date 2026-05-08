@@ -6,28 +6,27 @@ import ParseTree;
 import Message;
 
 import Verilang::Syntax;
-import Verilang::Parse;
 import Verilang::Checker;
 
-// Parser service: wraps our parseProgram
-Tree verilangParser(str input, loc origin)
-  = parse(#start[Program], input, origin);
+// Parser: crea el parser una sola vez (patron del ejemplo pico)
+private Tree (str, loc) verilangParser()
+  = parser(#start[Program], allowAmbiguity=false);
 
-// Analysis service: runs TypePal type checker and produces a Summary
-Summary verilangAnalyzer(loc l, Tree input) {
+// Analyzer: TypePal type checker -> Summary
+Summary verilangAnalyzer(loc l, start[Program] input) {
   TModel tm = checkProgram(input);
   rel[loc, Message] msgs = {<m.at, m> | m <- getMessages(tm), !(m is info)};
   rel[loc, loc]    defs  = getUseDef(tm);
   return summary(l, messages=msgs, definitions=defs);
 }
 
-// The set of IDE services for Verilang (called by the registered language server)
+// Servicios registrados (llamado por el language server)
 set[LanguageService] verilangServices() = {
-  parsing(verilangParser),
+  parsing(verilangParser(), usesSpecialCaseHighlighting=false),
   analysis(verilangAnalyzer, providesImplementations=false)
 };
 
-// Call this in the VSCode Rascal REPL to activate .vl support in the editor
+// Correr en el Rascal Terminal de VSCode para activar soporte .vl
 void main() {
   registerLanguage(
     language(

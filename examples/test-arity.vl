@@ -1,0 +1,12 @@
+defmodule TestArity
+  defspace Nat end
+  defspace Bool end
+
+  defoperator succ: Nat -> Nat end
+  defoperator plus: Nat -> Nat -> Nat end
+
+  defvar x: Nat end
+
+  defexpression (succ x x) end
+  defexpression (plus x) end
+end

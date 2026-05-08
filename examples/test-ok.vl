@@ -1,0 +1,16 @@
+defmodule TestOK
+  defspace Nat end
+  defspace Bool end
+
+  defoperator succ: Nat -> Nat end
+  defoperator plus: Nat -> Nat -> Nat end
+  defoperator not: Bool -> Bool end
+
+  defvar x: Nat, y: Nat end
+  defvar flag: Bool end
+
+  defrule (plus x (succ y)) -> (succ (plus x y)) end
+
+  defexpression (exists z in Nat . (succ z) = x) end
+  defexpression (forall a in Nat . (succ a) = (plus a (succ a))) end
+end

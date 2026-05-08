@@ -1,0 +1,7 @@
+defmodule TestLiterals
+  defexpression 1 = 1 end
+  defexpression 3.14 = 3.14 end
+  defexpression true = true end
+  defexpression 'a' = 'a' end
+  defexpression "hello" = "world" end
+end

@@ -30,7 +30,18 @@
       "Bash(unzip -p /Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal-lsp.jar META-INF/MANIFEST.MF)",
       "Bash(unzip -p /Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal-lsp.jar META-INF/maven/org.rascalmpl/rascal-lsp/pom.properties)",
       "Bash(mvn dependency:get -Dartifact=org.rascalmpl:rascal-lsp:2.22.5 -Dpackaging=jar -DremoteRepositories=https://releases.usethesource.io/maven/)",
-      "Bash(mvn install:install-file -Dfile=/Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal-lsp.jar -DgroupId=org.rascalmpl -DartifactId=rascal-lsp -Dversion=2.22.5 -Dpackaging=jar)"
+      "Bash(mvn install:install-file -Dfile=/Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal-lsp.jar -DgroupId=org.rascalmpl -DartifactId=rascal-lsp -Dversion=2.22.5 -Dpackaging=jar)",
+      "Bash(unzip -p ~/.m2/repository/org/rascalmpl/rascal/0.42.1/rascal-0.42.1.jar org/rascalmpl/library/ParseTree.rsc)",
+      "Bash(cd /tmp && jar xf ~/.m2/repository/org/rascalmpl/typepal/0.7.6/typepal-0.7.6.jar src/analysis/typepal/ISolver.rsc && cat src/analysis/typepal/ISolver.rsc)",
+      "Read(//private/tmp/**)",
+      "Bash(xargs cat)",
+      "Bash(find ~/.vscode/extensions/usethesource.rascalmpl-*/assets/jars/ -name \"*.jar\")",
+      "Bash(grep -n \"getMessages\\\\|getUseDef\\\\|messages\" /tmp/typepal-inspect/src/analysis/typepal/TModel.rsc | head -20)",
+      "Read(//tmp/typepal-inspect/src/analysis/typepal/**)",
+      "Bash(java -cp /Users/nicosanchport/Documents/RascalProjects/proyecto2/target/classes:/Users/nicosanchport/.m2/repository/org/rascalmpl/typepal/0.7.6/typepal-0.7.6.jar:/Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal.jar:/Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal-lsp.jar org.rascalmpl.shell.RascalShell CheckVerilang)",
+      "Bash(java -cp /Users/nicosanchport/Documents/RascalProjects/proyecto2/target/classes:/Users/nicosanchport/.m2/repository/org/rascalmpl/typepal/0.7.6/typepal-0.7.6.jar:/Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal.jar:/Users/nicosanchport/.vscode/extensions/usethesource.rascalmpl-0.13.5/assets/jars/rascal-lsp.jar org.rascalmpl.shell.RascalShell VerifyVerilang)",
+      "Bash(grep -v \"^Job\\\\|WARNING\\\\|^$\\\\|\\\\[INFO\\\\]\")",
+      "Bash(java -cp /Users/nicosanchport/Documents/RascalProjects/proyecto2/target/classes:/Users/nicosanchport/.m2/repository/org/rascalmpl/typepal/0.7.6/typepal-0.7.6.jar:__TRACKED_VAR__ org.rascalmpl.shell.RascalShell VerifyVerilang)"
     ]
   }
 }

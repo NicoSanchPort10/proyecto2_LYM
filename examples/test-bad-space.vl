@@ -1,0 +1,3 @@
+defmodule TestBadSpace
+  defvar x: Nonexistent end
+end
