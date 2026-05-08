@@ -31,8 +31,13 @@ str generateDecl(operatorDecl(str name, Type sig, list[Attribute] attrs)) =
   "  Op: <name> : <generateType(sig)> [<generateAttrs(attrs)>]";
 str generateDecl(operatorDeclBlock(str name, Type sig, block(list[Attribute] attrs))) =
   "  Op: <name> : <generateType(sig)> [<generateAttrs(attrs)>]";
-str generateDecl(varDecl(list[VarItem] vars)) =
-  "  Vars: <intercalate(", ", [generateVar(v) | v <- vars])>";
+str generateDecl(varDecl(list[VarItem] vars)) {
+  str result = "  Vars:";
+  for (v <- vars) {
+    result += "\n    <generateVar(v)>";
+  }
+  return result;
+}
 str generateDecl(ruleDecl(RuleTerm l, RuleTerm r)) =
   "  Rule: <generateRuleTerm(l)> -\> <generateRuleTerm(r)>";
 str generateDecl(expressionDeclNoAttrs(Expr e)) =
@@ -44,7 +49,7 @@ default str generateDecl(Declaration _) = "";
 str generateType(namedType(str name)) = name;
 str generateType(functionType(str from, Type to)) = "<from> -\> <generateType(to)>";
 
-str generateVar(varItem(str name, str typeName)) = "<name>:<typeName>";
+str generateVar(varItem(str name, str typeName)) = "<name> : <typeName>";
 
 str generateAttrs(list[Attribute] attrs) =
   intercalate(", ", [generateAttr(a) | a <- attrs]);

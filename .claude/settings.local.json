@@ -4,7 +4,18 @@
       "Bash(tree -L 3 /Users/nicosanchport/Documents/RascalProjects/proyecto2 --ignore \".git\" --ignore \"target\")",
       "Bash(mvn compile *)",
       "Bash(mvn org.rascalmpl:rascal-maven-plugin:0.8.2:compile)",
-      "Bash(mvn clean *)"
+      "Bash(mvn clean *)",
+      "Read(//usr/local/bin/**)",
+      "Read(//usr/**)",
+      "Read(//Users/viviana/Documents/**)",
+      "Bash(java -version)",
+      "Read(//Users/viviana/.m2/wrapper/**)",
+      "Read(//Users/viviana/.m2/repository/org/apache/maven/**)",
+      "Bash(java -cp '/Users/viviana/Desktop/proyecto elementos 2 /proyecto2_LYM:/Users/viviana/Desktop/proyecto elementos 2 /proyecto2_LYM/src/main/rascal:__TRACKED_VAR__:__TRACKED_VAR__:__TRACKED_VAR__' org.rascalmpl.shell.RascalShell CompileVerilang examples/set.veri)",
+      "Bash(/usr/libexec/java_home -V)",
+      "Bash(curl -s -o /tmp/maven.zip \"https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.zip\")",
+      "Bash(echo \"download started, PID=$!\")",
+      "Bash(unzip -q /tmp/maven.zip -d /tmp/)"
     ]
   }
 }

@@ -32,7 +32,7 @@ int checkFile(loc src) {
 }
 
 int main(list[str] _args=[]) {
-  loc base = |file:///Users/nicosanchport/Documents/RascalProjects/proyecto2/examples/|;
+  loc base = |project://proyecto2/examples/|;
 
   list[tuple[str file, int expectedErrors]] cases = [
     <"test-ok.vl",    0>,

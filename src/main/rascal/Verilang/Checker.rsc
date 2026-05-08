@@ -39,6 +39,8 @@ void collect(current: (Module) `defmodule <Identifier _name> <Declaration* decls
   c.leaveScope(current);
 }
 
+void collect((Declaration) `using <Identifier _>`, Collector c) { }
+
 // --- Collect: Espacios ---
 void collect(current: (Declaration) `defspace <Identifier name> end`, Collector c) {
   c.define("<name>", spaceId(), name, defType(spaceType()));
