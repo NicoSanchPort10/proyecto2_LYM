@@ -12,7 +12,6 @@ import Verilang::Checker;
 private Tree (str, loc) verilangParser()
   = parser(#start[Program], allowAmbiguity=false);
 
-// Analyzer: TypePal type checker -> Summary
 Summary verilangAnalyzer(loc l, start[Program] input) {
   TModel tm = checkProgram(input);
   rel[loc, Message] msgs = {<m.at, m> | m <- getMessages(tm), !(m is info)};

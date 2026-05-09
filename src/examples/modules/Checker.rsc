@@ -76,8 +76,6 @@ void handleImports(Collector c, Tree root, PathConfig pcfg) {
     }
 }
 
-// ----  Collect definitions, uses and requirements -----------------------
-
 
 void collect(current: (Program) `module <ModuleId moduleName>  <Import* imports> <TopLevelDecl* decls>`, Collector c){
  	c.define("<moduleName>", moduleId(), current, defType(moduleType()));
@@ -106,10 +104,9 @@ void collect(current: (Type) `<Id name>`, Collector c){
     
 }
 
-// ----  Examples & Tests --------------------------------
 TModel modulesTModelFromTree(Tree pt, bool debug = false){
     if (pt has top) pt = pt.top;
-    c = newCollector("collectAndSolve", pt, config=getModulesConfig(debug = debug));    // TODO get more meaningfull name
+    c = newCollector("collectAndSolve", pt, config=getModulesConfig(debug = debug));
     collect(pt, c);
     handleImports(c, pt, pathConfig(pt@\loc));
     return newSolver(pt, c.run()).run();
